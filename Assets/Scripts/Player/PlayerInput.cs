@@ -36,7 +36,7 @@ public class PlayerInput : MonoBehaviour
         }
     }
     void InputAttack() {
-        if(Input.GetButtonDown("Attack")) {
+        if(Input.GetButtonDown("Fire1")) {
             player.BasicAttack();
         }
     }
