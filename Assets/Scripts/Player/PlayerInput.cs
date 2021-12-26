@@ -40,12 +40,17 @@ public class PlayerInput : MonoBehaviour
             player.BasicAttack();
         }
     }
-
+    void InputDodge() {
+        if(Input.GetButtonDown("Dodge")) {
+            player.Dodge();
+        }
+    }
     void Update() {
         InputMove();
         InputJump();
         InputDownJump();
         InputAttack();
+        InputDodge();
         OutputJump();
         OutputMove();
     }
