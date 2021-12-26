@@ -13,15 +13,11 @@ public class Platform : MonoBehaviour
     }
     IEnumerator passPlayerCoroutine;
     public void PassPlayer() {
-        if(passPlayerCoroutine != null) {
-            StopCoroutine(passPlayerCoroutine);
-        }
-        passPlayerCoroutine = PassPlayerCoroutine();
-        StartCoroutine(passPlayerCoroutine);
-    }
-    public IEnumerator PassPlayerCoroutine() {
         platformEffector.colliderMask = platformEffector.colliderMask & ~LayerMask.GetMask("Player");
-        yield return new WaitForSeconds(.25f);
-        platformEffector.colliderMask = originMask;
+    }
+    void OnTriggerExit2D(Collider2D other) {
+        if(other.tag == "Player") {
+            platformEffector.colliderMask = originMask;
+        }
     }
 }
