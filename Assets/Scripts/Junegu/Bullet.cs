@@ -4,31 +4,25 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
-    Vector3 start;
     float bulletSpeed = 35f;
-    float dist;
 
     void Start()
     {
-        start = this.transform.position;
+        StartCoroutine(TimeDelete());
+        Debug.Log("น฿ป็");
     }
 
-    void DistDelete()
+    IEnumerator TimeDelete()
     {
-        Vector3 pos = this.transform.position;
-        dist = Vector3.Distance(start, pos);
-
-        if (dist >= 3)
-        {
-            Destroy(gameObject);
-        }
+        yield return new WaitForSeconds(2f);
+        Destroy(gameObject);
     }
+
     void BulletThrow() {
         transform.Translate(Vector2.up * bulletSpeed * Time.deltaTime);
     }
     void Update()
     {
-        DistDelete();
         BulletThrow();
     }
 
