@@ -14,7 +14,7 @@ public class StateMachine {
             currentState.InactiveStateHandler();
             currentState = _nextState;
             currentState.ActiveStateHandler();
-            // Debug.Log(currentState.GetStateName());
+            Debug.Log(currentState.GetStateName());
         }
     }
 }

@@ -4,28 +4,16 @@ using UnityEngine;
 
 public class Shoot : MonoBehaviour
 {
-    Rigidbody2D rigidbody2D;
-    public Transform pos;
     public GameObject copyBullet;
-
-    public float shootPower = 100;
-    
-    void Start()
+    void Fire()
     {
-        rigidbody2D = gameObject.GetComponent<Rigidbody2D>();
-    }
-
-    void fire()
-    {
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetButtonDown("Fire1"))
         {
-            Instantiate(copyBullet, pos.position, transform.rotation);
-            rigidbody2D.AddForce(Vector2.right * shootPower);
+            Instantiate(copyBullet, transform.position, copyBullet.transform.rotation);
         }
     }
-
     void Update()
     {
-        fire();
+        Fire();
     }
 }

@@ -24,16 +24,16 @@ public abstract class Weapon : MonoBehaviour {
         get { return basicAttackStands.Count; }
     }
     public struct Stand {
-        public float minMove;
-        public float moveCoef;
         public float damageCoef;
         public AnimationClip animation;
+        public float moveCoef;
+        public float minMove;
         
         public Stand(float _damageCoef, AnimationClip _anim, float _moveCoef = 1, float _minMove = 0) {
-            minMove = _minMove;
-            moveCoef = _moveCoef;
             damageCoef = _damageCoef;
             animation = _anim;
+            moveCoef = _moveCoef;
+            minMove = _minMove;
         }
     }
 }

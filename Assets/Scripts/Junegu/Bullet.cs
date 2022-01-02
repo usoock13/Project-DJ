@@ -5,8 +5,9 @@ using UnityEngine;
 public class Bullet : MonoBehaviour
 {
     Vector3 start;
-
+    float bulletSpeed = 35f;
     float dist;
+
     void Start()
     {
         start = this.transform.position;
@@ -22,10 +23,13 @@ public class Bullet : MonoBehaviour
             Destroy(gameObject);
         }
     }
-
+    void BulletThrow() {
+        transform.Translate(Vector2.up * bulletSpeed * Time.deltaTime);
+    }
     void Update()
     {
         DistDelete();
+        BulletThrow();
     }
 
 }
