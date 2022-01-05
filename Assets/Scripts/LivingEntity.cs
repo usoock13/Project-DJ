@@ -2,15 +2,23 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LivingEntity : IDamagable {
+public abstract class LivingEntity : MonoBehaviour, IDamagable {
+    public float healthPoint;
     bool isDead = false;
-    public void OnDamage() {
+    bool isFixedEntity = false;
+    protected void Start() {
         
     }
-    public void OnDestroy() {
-
+    public virtual void OnDamage(Damage damage) {
+        healthPoint -= damage.point;
+        if(healthPoint<0) {
+            healthPoint = 0;
+            Die();
+        }
     }
     public void Die() {
+        isDead = true;
         OnDestroy();
     }
+    public void OnDestroy() {}
 }

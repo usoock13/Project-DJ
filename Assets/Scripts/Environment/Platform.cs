@@ -6,7 +6,6 @@ public class Platform : MonoBehaviour
 {
     PlatformEffector2D platformEffector;
     int originMask;
-
     void Start() {
         platformEffector = GetComponent<PlatformEffector2D>();
         originMask = platformEffector.colliderMask;

@@ -5,7 +5,6 @@ using UnityEngine;
 public class PlayerInput : MonoBehaviour 
 {
     Player player;
-
     void Start() {
         player = GetComponent<Player>();
     }
@@ -40,6 +39,11 @@ public class PlayerInput : MonoBehaviour
             player.BasicAttack();
         }
     }
+    void InputSpecialAttack() {
+        if(Input.GetButtonDown("Fire2")) {
+            player.SpecialAttack();
+        }
+    }
     void InputDodge() {
         if(Input.GetButtonDown("Dodge")) {
             player.Dodge();
@@ -50,6 +54,7 @@ public class PlayerInput : MonoBehaviour
         InputJump();
         InputDownJump();
         InputAttack();
+        InputSpecialAttack();
         InputDodge();
         OutputJump();
         OutputMove();

@@ -1,4 +1,6 @@
+using UnityEngine;
+
 public interface IDamagable {
-    void OnDamage();
+    void OnDamage(Damage damagePoint);
     void OnDestroy();
 }
