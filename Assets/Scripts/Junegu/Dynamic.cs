@@ -24,7 +24,7 @@ public class Dynamic : MonoBehaviour
         Vector2 moveDirection = new Vector2(Input.GetAxisRaw("Horizontal"), 0);
         if(moveDirection != Vector2.zero)
         {
-            if (!Physics2D.BoxCast(transform.position, collider2D.bounds.size*0.99f, 0, moveDirection, 0.05f, 192))
+            if (!Physics2D.BoxCast(collider2D.bounds.center, collider2D.bounds.size*0.99f, 0, moveDirection, 0.05f, 192))
             {
                 transform.Translate(moveDirection * movePower * Time.deltaTime);
                 transform.localScale = new Vector3(moveDirection.x, 1, 1);
@@ -47,13 +47,13 @@ public class Dynamic : MonoBehaviour
                 jumpCount++;
             }
         }
-        Debug.DrawRay(transform.position + new Vector3(0, -1.3f, 0), Vector2.down * 0.078f, Color.red);
+        //Debug.DrawRay(collider2D.bounds.center, Vector2.down * 0.3f, Color.red);
     }
     void GroundCheck()
     {
         Vector2 collidersize = collider2D.bounds.size;
-        RaycastHit2D boxcastHit = Physics2D.BoxCast(transform.position + new Vector3(0, -1.3f, 0), collidersize, 0, Vector2.down, 0.078f, 192);
-        if(boxcastHit && rigidbody2D.velocity.y < 0)
+        RaycastHit2D boxcastHit = Physics2D.BoxCast(collider2D.bounds.center , collidersize, 0, Vector2.down, 0.078f, 192);
+        if(boxcastHit && rigidbody2D.velocity.y <= 0)
         {
             playerAnimator.SetBool("Jump", false);
             jumpCount = 0;
@@ -65,11 +65,6 @@ public class Dynamic : MonoBehaviour
         Move();
         Jump();
         GroundCheck();
-    }
-
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        
     }
 
 }
