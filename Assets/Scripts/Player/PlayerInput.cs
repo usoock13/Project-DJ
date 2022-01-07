@@ -5,17 +5,19 @@ using UnityEngine;
 public class PlayerInput : MonoBehaviour 
 {
     Player player;
+    Vector2 moveDirection;
     void Start() {
         player = GetComponent<Player>();
     }
     void InputMove() {
-        Vector2 moveDirection = new Vector2(Input.GetAxisRaw("Horizontal"), 0);
+        moveDirection = new Vector2(Input.GetAxisRaw("Horizontal"), 0);
         if(moveDirection != Vector2.zero) {
             player.BasicMove(moveDirection);
         }
     }
     void OutputMove() {
-        if(Input.GetButtonUp("Horizontal")) {
+        moveDirection = new Vector2(Input.GetAxisRaw("Horizontal"), 0);
+        if(moveDirection == Vector2.zero) {
             player.BasicMoveStop();
         }
     }

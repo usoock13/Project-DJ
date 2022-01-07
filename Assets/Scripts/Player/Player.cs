@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Animations;
+using UnityEditor.Animations;
 
 public class Player : LivingEntity 
 {
@@ -45,7 +45,6 @@ public class Player : LivingEntity
 
     // 애니메이션 관련 변수
     Animator playerAnimator;
-    AnimatorOverrideController playerAnimatorOverrideController;
     float originAnimationSpeed = 1f;
 
     new void Start() {
@@ -55,8 +54,7 @@ public class Player : LivingEntity
         currentAddtialJumpCount = maxAdditialJumpCount;
 
         playerAnimator = transform.Find("Player Sprite").GetComponent<Animator>();
-        playerAnimatorOverrideController = new AnimatorOverrideController(playerAnimator.runtimeAnimatorController);
-        playerAnimator.runtimeAnimatorController = playerAnimatorOverrideController;
+        playerAnimator.runtimeAnimatorController = equipedWeapon.weaponAnimatorController as RuntimeAnimatorController;
 
         playerStateMachine = new StateMachine(playerStateIdle);
         InitialStates();
@@ -90,12 +88,11 @@ public class Player : LivingEntity
             playerRigidbody.velocity = new Vector2(0, playerRigidbody.velocity.y);
         };
         playerStateAttack.activeDelegate += () => {
-            playerAnimator.Rebind();
             playerAnimator.speed = attackSpeed;
             playerAnimator.SetBool("Attack", true);
+            playerAnimator.SetInteger("Combo Count", currentBasicCombo);
             canMove = false;
             attackCoroutine = BasicAttackCoroutine();
-            playerAnimatorOverrideController["HeroKnight_Attack1"] = equipedWeapon.basicAttackStands[currentBasicCombo].animation;
             StartCoroutine(attackCoroutine);
         };
         playerStateAttack.inactiveDelegate += () => {

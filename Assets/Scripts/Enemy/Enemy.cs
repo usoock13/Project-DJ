@@ -25,7 +25,7 @@ public class Enemy : LivingEntity {
         
         enemyStatemachine = new StateMachine(enemyStateIdle);
         enemyStateHit.activeDelegate += () => {
-            if(hitEffectCoroutine != null) 
+            if(hitEffectCoroutine != null)
                 StopCoroutine(hitEffectCoroutine);
             hitEffectCoroutine = HitEffectCoroutine();
             StartCoroutine(hitEffectCoroutine);
@@ -40,7 +40,7 @@ public class Enemy : LivingEntity {
         hitTime += .3f;
         enemyAniamtor.Rebind();
         enemyAniamtor.SetBool("Hit", true);
-        enemyRigidbody.AddForce(damage.force * new Vector2(transform.position.x>damage.origin.transform.position.x ? 1 : -1, 1), ForceMode2D.Impulse);
+        enemyRigidbody.AddForce(damage.force, ForceMode2D.Impulse);
         enemyStatemachine.ChangeState(enemyStateHit);
     }
     public IEnumerator HitEffectCoroutine() {

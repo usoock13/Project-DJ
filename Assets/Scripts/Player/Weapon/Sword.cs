@@ -6,10 +6,6 @@ public class Sword : Weapon {
     float weaponPower = 15f;
     float weaponForce = 1f;
 
-    public List<AnimationClip> basicAttackAnimations;
-    public List<AnimationClip> specialAttackAnimations;
-    public List<AnimationClip> jumpAttackAnimations;
-    public List<AnimationClip> jumpSpecialAttackAnimations;
     public Player player;
 
     public List<GameObject> basicAttackArea = new List<GameObject>();
@@ -18,10 +14,10 @@ public class Sword : Weapon {
     public List<GameObject> jumpSpecialAttackArea = new List<GameObject>();
 
     void Awake() {
-        basicAttackStands.Add(new Stand(20f, new Vector2(5f, 0), basicAttackAnimations[0], .15f, .25f, 1f, 1f));
-        basicAttackStands.Add(new Stand(20f, new Vector2(5f, 0), basicAttackAnimations[1], .18f, .25f, 1f, 1f));
-        jumpAttackStands.Add(new Stand(25f, new Vector2(5f, -1f), jumpAttackAnimations[0], .19f, .45f, 0f, 0f));
-        jumpSpecialAttackStands.Add(new Stand(35f, new Vector2(6f, 13f), jumpSpecialAttackAnimations[0], .35f, 0, 0f, 0f));
+        basicAttackStands.Add(new Stand(20f, new Vector2(5f, 0), .15f, .25f, 1f, 1f));
+        basicAttackStands.Add(new Stand(20f, new Vector2(5f, 0), .18f, .25f, 1f, 1f));
+        jumpAttackStands.Add(new Stand(25f, new Vector2(5f, -1f), .19f, .45f, 0f, 0f));
+        jumpSpecialAttackStands.Add(new Stand(35f, new Vector2(6f, 13f), .35f, 0, 0f, 0f));
     }
     void Start() {
         player ??= GameObject.FindWithTag("Player").GetComponent<Player>();
@@ -37,7 +33,8 @@ public class Sword : Weapon {
             LivingEntity targetLivingEntity = target.GetComponent<LivingEntity>();
             if(targetLivingEntity) {
                 Stand stand = basicAttackStands[comboCount];
-                Damage damage = new Damage(stand.damageCoef, stand.forceCoef, player.gameObject);
+                Vector2 force = stand.forceCoef * new Vector2(targetLivingEntity.transform.position.x>player.transform.position.x ? 1 : -1, 1);
+                Damage damage = new Damage(stand.damageCoef, force, player.gameObject);
                 targetLivingEntity.OnDamage(damage);
             }
         }
@@ -50,7 +47,8 @@ public class Sword : Weapon {
             LivingEntity targetLivingEntity = target.GetComponent<LivingEntity>();
             if(targetLivingEntity) {
                 Stand stand = jumpAttackStands[comboCount];
-                Damage damage = new Damage(stand.damageCoef, stand.forceCoef, player.gameObject);
+                Vector2 force = stand.forceCoef * new Vector2(targetLivingEntity.transform.position.x>player.transform.position.x ? 1 : -1, 1);
+                Damage damage = new Damage(stand.damageCoef, force, player.gameObject);
                 targetLivingEntity.OnDamage(damage);
             }
         }
@@ -63,7 +61,8 @@ public class Sword : Weapon {
             LivingEntity targetLivingEntity = target.GetComponent<LivingEntity>();
             if(targetLivingEntity) {
                 Stand stand = jumpSpecialAttackStands[comboCount];
-                Damage damage = new Damage(stand.damageCoef, stand.forceCoef, player.gameObject);
+                Vector2 force = stand.forceCoef * new Vector2(targetLivingEntity.transform.position.x>player.transform.position.x ? 1 : -1, 1);
+                Damage damage = new Damage(stand.damageCoef, force, player.gameObject);
                 targetLivingEntity.OnDamage(damage);
             }
         }

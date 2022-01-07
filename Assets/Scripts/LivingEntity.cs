@@ -16,9 +16,9 @@ public abstract class LivingEntity : MonoBehaviour, IDamagable {
             Die();
         }
     }
-    public void Die() {
+    public virtual void Die() {
         isDead = true;
         OnDestroy();
     }
-    public void OnDestroy() {}
+    public virtual void OnDestroy() {}
 }
